@@ -1,38 +1,95 @@
+:root {
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --container-bg: white;
+    --password-bg: #f8f9fa;
+    --button-bg: #007bff;
+    --button-hover: #0056b3;
+    --copy-bg: #28a745;
+    --copy-hover: #218838;
+    --strength-weak: #ff6b6b;
+    --strength-medium: #ffd166;
+    --strength-strong: #06d6a0;
+}
+
+.dark-mode {
+    --bg-color: #1a1a2e;
+    --text-color: #f8f9fa;
+    --container-bg: #16213e;
+    --password-bg: #0f3460;
+    --button-bg: #6c757d;
+    --button-hover: #495057;
+    --copy-bg: #38a169;
+    --copy-hover: #2d7a54;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background: #f4f4f9;
+    background: var(--bg-color);
     margin: 0;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    color: #333;
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
 }
 
 .container {
-    background: white;
+    background: var(--container-bg);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 500px;
     width: 100%;
+    transition: background 0.3s;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 h1 {
-    margin-bottom: 1.5rem;
+    margin: 0;
     font-size: 1.5rem;
 }
 
 .password-display {
-    background: #f8f9fa;
+    background: var(--password-bg);
     padding: 1rem;
     margin: 1rem 0;
     border-radius: 5px;
     font-size: 1.2rem;
     word-break: break-all;
     border: 1px dashed #ccc;
+    transition: background 0.3s;
+}
+
+.strength-meter {
+    margin: 1rem 0;
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.strength-bar {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--strength-weak);
+    transition: width 0.3s, background 0.3s;
+}
+
+.strength-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
 }
 
 .controls {
@@ -49,8 +106,13 @@ label {
     gap: 0.5rem;
 }
 
+input[type="range"] {
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
 button {
-    background: #007bff;
+    background: var(--button-bg);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -62,13 +124,19 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: var(--button-hover);
 }
 
 #copy {
-    background: #28a745;
+    background: var(--copy-bg);
 }
 
 #copy:hover {
-    background: #218838;
+    background: var(--copy-hover);
+}
+
+#darkModeToggle {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
 }
