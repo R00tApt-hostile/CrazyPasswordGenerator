@@ -8,11 +8,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Advanced Password Generator</h1>
+        <div class="header">
+            <h1>🔐 Ultra Password Generator</h1>
+            <button id="darkModeToggle">🌓 Dark Mode</button>
+        </div>
         <div class="password-display" id="password">Click "Generate"</div>
+        <div class="strength-meter" id="strengthMeter">
+            <span class="strength-bar"></span>
+            <span class="strength-text">Strength: -</span>
+        </div>
         <div class="controls">
             <label>
-                Length: <input type="number" id="length" min="8" max="64" value="12">
+                Length: <span id="lengthValue">12</span>
+                <input type="range" id="length" min="8" max="64" value="12">
             </label>
             <label>
                 <input type="checkbox" id="uppercase" checked> ABC
