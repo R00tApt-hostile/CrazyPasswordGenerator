@@ -1,5 +1,7 @@
 document.getElementById('generate').addEventListener('click', generatePassword);
 document.getElementById('copy').addEventListener('click', copyPassword);
+document.getElementById('length').addEventListener('input', updateLengthValue);
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
 
 function generatePassword() {
     const length = document.getElementById('length').value;
@@ -19,6 +21,37 @@ function generatePassword() {
     }
 
     document.getElementById('password').textContent = password;
+    updateStrengthMeter(password);
+}
+
+function updateLengthValue() {
+    document.getElementById('lengthValue').textContent = document.getElementById('length').value;
+}
+
+function updateStrengthMeter(password) {
+    const strengthBar = document.querySelector('.strength-bar');
+    const strengthText = document.querySelector('.strength-text');
+    
+    // Calculate strength (0-100)
+    let strength = 0;
+    if (password.length >= 12) strength += 40;
+    if (/[A-Z]/.test(password)) strength += 20;
+    if (/[0-9]/.test(password)) strength += 20;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+
+    strengthBar.style.width = `${strength}%`;
+
+    // Update color and text
+    if (strength < 40) {
+        strengthBar.style.background = 'var(--strength-weak)';
+        strengthText.textContent = 'Strength: Weak';
+    } else if (strength < 80) {
+        strengthBar.style.background = 'var(--strength-medium)';
+        strengthText.textContent = 'Strength: Medium';
+    } else {
+        strengthBar.style.background = 'var(--strength-strong)';
+        strengthText.textContent = 'Strength: Strong';
+    }
 }
 
 function copyPassword() {
@@ -28,4 +61,10 @@ function copyPassword() {
     navigator.clipboard.writeText(password)
         .then(() => alert('Password copied!'))
         .catch(() => alert('Failed to copy.'));
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const toggleBtn = document.getElementById('darkModeToggle');
+    toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ Light Mode' : '🌓 Dark Mode';
 }
