@@ -3,38 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Password Generator</title>
+    <title>Ultra Private Password Generator</title>
+    <meta name="description" content="100% client-side password generator with privacy features">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
+    <!-- CryptoJS for encryption -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔐 Ultra Password Generator</h1>
+            <h1>🔐 Ultra Private Generator</h1>
+            <div class="badge">🚫 No tracking. No ads. Ever.</div>
             <button id="darkModeToggle">🌓 Dark Mode</button>
         </div>
-        <div class="password-display" id="password">Click "Generate"</div>
-        <div class="strength-meter" id="strengthMeter">
-            <span class="strength-bar"></span>
-            <span class="strength-text">Strength: -</span>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle">
+            <button class="active" id="pwMode">Password</button>
+            <button id="phraseMode">Passphrase</button>
         </div>
-        <div class="controls">
-            <label>
-                Length: <span id="lengthValue">12</span>
-                <input type="range" id="length" min="8" max="64" value="12">
-            </label>
-            <label>
-                <input type="checkbox" id="uppercase" checked> ABC
-            </label>
-            <label>
-                <input type="checkbox" id="numbers" checked> 123
-            </label>
-            <label>
-                <input type="checkbox" id="symbols" checked> !@#
-            </label>
+
+        <!-- Password Generator -->
+        <div id="passwordSection">
+            <div class="password-display" id="password">Click "Generate"</div>
+            <div class="strength-meter">
+                <span class="strength-bar"></span>
+                <span class="strength-text">Strength: -</span>
+            </div>
+            <div class="controls">
+                <label>
+                    Length: <span id="lengthValue">12</span>
+                    <input type="range" id="length" min="8" max="64" value="12">
+                </label>
+                <label><input type="checkbox" id="uppercase" checked> ABC</label>
+                <label><input type="checkbox" id="numbers" checked> 123</label>
+                <label><input type="checkbox" id="symbols" checked> !@#</label>
+            </div>
         </div>
-        <button id="generate">Generate Password</button>
-        <button id="copy">Copy to Clipboard</button>
+
+        <!-- Passphrase Generator (Hidden by Default) -->
+        <div id="phraseSection" style="display:none">
+            <div class="password-display" id="passphrase">Click "Generate"</div>
+            <div class="controls">
+                <label>
+                    Words: <span id="wordCountValue">4</span>
+                    <input type="range" id="wordCount" min="3" max="8" value="4">
+                </label>
+                <label>
+                    Separator:
+                    <select id="separator">
+                        <option value="-">Hyphen (-)</option>
+                        <option value=" ">Space ( )</option>
+                        <option value=".">Period (.)</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <button id="generate">Generate</button>
+            <button id="copy">Copy</button>
+            <button id="export">Export Encrypted</button>
+        </div>
+
+        <!-- Privacy Features -->
+        <div class="privacy-features">
+            <div class="warning">
+                <small>⚠️ Clear clipboard after pasting to prevent snooping.</small>
+            </div>
+            <div class="privacy-note">
+                🔒 All processing happens in your browser—nothing is sent to servers.
+            </div>
+            <div class="tips">
+                <h3>🔍 Privacy Tips:</h3>
+                <ul>
+                    <li>Use a password manager (Bitwarden, KeePass)</li>
+                    <li>Enable 2FA everywhere</li>
+                    <li>Never reuse passwords</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Install PWA Button (Hidden by Default) -->
+        <button id="installPWA" style="display:none">📱 Install App</button>
     </div>
+
     <script src="script.js"></script>
+    <!-- Load Diceware wordlist dynamically -->
+    <script src="words.js" defer></script>
 </body>
 </html>
